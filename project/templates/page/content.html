@@ -1,0 +1,194 @@
+{% extends "layout.html" %}
+{% load static %}
+
+
+{% block title %}IA - Puzzle{% endblock %}
+
+
+{% block head %}
+{% endblock %}
+
+
+{% block title_container %}Puzzle{% endblock %}
+
+
+{% block main %}
+<!-- Aqui -->
+
+{% if form %}
+<section class="py-5">
+    <div class="container px-5">
+        <!-- Contact form-->
+        <div class="bg-light rounded-4 py-5 px-4 px-md-5">
+            <div class="row gx-5 justify-content-center">
+                <div class="col-lg-8 col-xl-6">
+                    <form method="POST" id="contactForm">
+                        {% csrf_token %}
+                        <div class="text-center mb-3">
+                            <p class="lead fw-normal text-muted mb-0">Ingrese a la matriz de estado inicial</p>
+                        </div>
+                        <div class="row gx-5 justify-content-center">
+                            <div class="col-4">
+                                <div class="form-floating mb-3">
+                                    <input name="uno" class="form-control" type="text" autocomplete="off" required />
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-floating mb-3">
+                                    <input name="dos" class="form-control" type="text" autocomplete="off" required />
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-floating mb-3">
+                                    <input name="tres" class="form-control" type="text" autocomplete="off" required />
+                                </div>
+                            </div>
+
+
+                            <div class="col-4">
+                                <div class="form-floating mb-3">
+                                    <input name="cuatro" class="form-control" type="text" autocomplete="off" required />
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-floating mb-3">
+                                    <input name="cinco" class="form-control" type="text" autocomplete="off" required />
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-floating mb-3">
+                                    <input name="seis" class="form-control" type="text" autocomplete="off" required />
+                                </div>
+                            </div>
+
+
+                            <div class="col-4">
+                                <div class="form-floating mb-3">
+                                    <input name="siete" class="form-control" type="text" autocomplete="off" required />
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-floating mb-3">
+                                    <input name="ocho" class="form-control" type="text" autocomplete="off" required />
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-floating mb-3">
+                                    <input name="nueve" class="form-control" type="text" autocomplete="off" required />
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Estado Objetivo -->
+                        <br>
+                        <div class="text-center mb-3">
+                            <p class="lead fw-normal text-muted mb-0">Ingrese a la matriz del estado objetivo</p>
+                        </div>
+                        <div class="row gx-5 justify-content-center">
+                            <div class="col-4">
+                                <div class="form-floating mb-3">
+                                    <input name="sol_uno" class="form-control" type="text" autocomplete="off" required />
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-floating mb-3">
+                                    <input name="sol_dos" class="form-control" type="text" autocomplete="off" required />
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-floating mb-3">
+                                    <input name="sol_tres" class="form-control" type="text" autocomplete="off" required />
+                                </div>
+                            </div>
+
+
+                            <div class="col-4">
+                                <div class="form-floating mb-3">
+                                    <input name="sol_cuatro" class="form-control" type="text" autocomplete="off" required />
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-floating mb-3">
+                                    <input name="sol_cinco" class="form-control" type="text" autocomplete="off" required />
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-floating mb-3">
+                                    <input name="sol_seis" class="form-control" type="text" autocomplete="off" required />
+                                </div>
+                            </div>
+
+
+                            <div class="col-4">
+                                <div class="form-floating mb-3">
+                                    <input name="sol_siete" class="form-control" type="text" autocomplete="off" required />
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-floating mb-3">
+                                    <input name="sol_ocho" class="form-control" type="text" autocomplete="off" required />
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-floating mb-3">
+                                    <input name="sol_nueve" class="form-control" type="text" autocomplete="off" required />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-grid"><button class="btn btn-primary btn-lg" id="submitButton"
+                                type="submit">Solución</button></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{% if not form %}
+<section class="py-5">
+    <div class="container px-5">
+        <!-- Contact form-->
+        <div class="bg-light rounded-4 py-5 px-4 px-md-5">
+            <div class="row gx-5 justify-content-center">
+                <div class="col-lg-8 col-xl-6">
+                    {% for solution_group in solutions %}
+                        <div class="text-center mb-3">
+                            <p class="lead fw-normal text-muted mb-0">------------- Siguiente -------------</p>
+                        </div>
+                        <div class="row gx-5 justify-content-center">
+                            {% for solution_row in solution_group %}
+                            <div class="col-4">
+                                <div class="form-floating mb-3">
+                                    <input value="{{ solution_row.0 }}" class="form-control" type="text" autocomplete="off" disabled />
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-floating mb-3">
+                                    <input value="{{ solution_row.1 }}" class="form-control" type="text" autocomplete="off" disabled />
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-floating mb-3">
+                                    <input value="{{ solution_row.2 }}" class="form-control" type="text" autocomplete="off" disabled />
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+                    <br>
+                    <a class="btn btn-primary btn-lg" href="/">Nuevo</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+
+{% endblock %}
+
+
+{% block js %}
+{% endblock %}
